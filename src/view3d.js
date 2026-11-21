@@ -1,5 +1,5 @@
 // 3D view of the game map. Same town data, borders, colours and replay frames as the 2D canvas
-// in game-view.js, on the real terrain: the map is draped over an elevation grid of Kongsberg
+// in game-view.js, on the real terrain: the map is draped over an elevation grid of Grimstad
 // (data/terrain.bin) and everything stands on it. Order homes are the real OpenStreetMap
 // footprints at each customer address.
 import * as THREE from 'three';
@@ -7,12 +7,12 @@ import { MapControls } from 'three/addons/controls/MapControls.js';
 import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { forestPath } from './forest.js';
-import { createBuildings } from './buildings3d.js?v=16';
+import { createBuildings } from './buildings3d.js?v=19';
 import { COLORS, HEADS, INK as TRUCK_INK, SHELL, EDGE, WOOD, LAMP, mix, light, face } from './looks.js';
 
 const M = 1 / 1.113;              // world units per metre (one unit is 1e-5 degree of latitude)
 const LIFT = 1.3;                 // buildings a little taller than life so the town reads from above
-const RELIEF = 1.25;              // hills a little steeper than life, so the valley reads at a tilt
+const RELIEF = 1.6;               // flat coastal town: hills a little steeper than life, so they read at a tilt
 const PALETTE = {
   ground: '#f0e9d8', side: '#e2d6bb', base: '#cfc1a2', green: '#c9d8ac', water: '#86b8c5',
   lane: '#ded4bd', streetCase: '#d0c4aa', majorCase: '#bca989', street: '#ffffff', major: '#fff7e5',
@@ -323,7 +323,7 @@ export async function createWorld3d(opts) {
   const flowX = new Float32Array(water.length), flowZ = new Float32Array(water.length), flowSpeed = new Float32Array(water.length);
   const flowing = [];                       // cells of rivers big enough to show a current
   // Sea and fjords (coastal towns): water within 2 m of sea level is still, and is where rivers end.
-  // Inland towns (Kongsberg's lowest point is 123 m) never have such cells.
+  // Inland towns (Kongsberg's lowest point is 123 m) never have such cells. Grimstad is coastal.
   const SEA = (2 - relief.base) * M * RELIEF;
   const atSea = i => heightAt(cellX(i), cellZ(i)) < SEA;
   {
@@ -573,8 +573,8 @@ export async function createWorld3d(opts) {
   }
 
   // ---- forests: where OSM maps forest or wood, and on empty land away from town -------------
-  // Around Kongsberg most land the map leaves empty is spruce forest in real life. Fields, meadows,
-  // built-up areas, parks (they have their own trees), roads, water and land near buildings stay clear.
+  // Around Grimstad most land the map leaves empty is spruce and birch forest in real life. Fields,
+  // meadows, built-up areas, parks (they have their own trees), roads, water and land near buildings stay clear.
   // Two instanced meshes for every tree, about 20 triangles each, so the forest stays cheap to draw.
   {
     const spruce = forest.filter(t => t[4]), birch = forest.filter(t => !t[4]);

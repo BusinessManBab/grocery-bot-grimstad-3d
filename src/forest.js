@@ -1,6 +1,6 @@
 // Where the forest grows, shared by the 2D map (green under the trees) and the 3D view (the trees).
 // Trees go where OSM maps forest or wood (data/landcover.json), and on empty land away from town:
-// around Kongsberg most land the map leaves empty is spruce forest in real life. Fields, meadows,
+// around Grimstad most land the map leaves empty is spruce and birch forest in real life. Fields, meadows,
 // built-up areas, parks, roads, water, land within ~35 m of a building and the shop plazas stay clear.
 // Deterministic (seeded), so 2D and 3D agree and every visit looks the same.
 

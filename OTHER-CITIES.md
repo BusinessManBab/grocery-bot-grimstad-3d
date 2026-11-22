@@ -723,3 +723,13 @@ the browser console, `groceryView.world3d.flowAt(x, z)` returns `[dx, dz, speed]
   on the page.
 - Elevation: Mapzen Terrarium tiles on AWS Open Data.
 - Delivery homes, shops and the replay: the Grocery Bot game data for that town.
+
+## Landmarks (trademark sites)
+
+Each town gets 2-4 of its trademark buildings or areas modelled by hand so they stand out: pick sites inside
+`bounds` (OSM features with a `wikidata` tag are a good start), verify their shape and colours from reliable
+sources and photos, then describe them in `tools/landmarks.spec.json` (generic models `church`, `outline`,
+`rapids`, plus the town's own entries in `MODELS` in `src/landmarks.js`; Grimstad added `gablehouse`, `harbour`
+and a neo-Gothic `capStyle` for `church`). Run `node tools/bake_landmarks.mjs`, then `node tools/bake_buildings.mjs`
+(drops the footprints a landmark replaces), then the tree bake. Keep it to a handful of draw calls and well under
+30k triangles, and never add coplanar faces (offset details by at least 0.25 m).

@@ -11,6 +11,34 @@ Grimstad's town data, following [OTHER-CITIES.md](OTHER-CITIES.md).
 - Bridges: roads cross water on raised decks with railings and piers; trucks drive over them.
 - The river flows: streaks drift downstream along each river (direction from a distance-to-outlet field over the water areas), faster where the river drops. The Groosefjorden is still.
 
+
+## Landmarks
+
+Three of Grimstad's trademarks are modelled by hand in `src/landmarks.js` from `tools/landmarks.spec.json`
+(baked by `node tools/bake_landmarks.mjs` into `data/landmarks.json` and the 3D **Explore** menu, `data/places.json`):
+
+- **Grimstad kirke** (1881, Henrik Thrap-Meyer): one of Norway's largest wooden churches, a neo-Gothic cross church
+  on its real OSM outline, painted light green with yellow-ochre trim (its original colours), pointed windows,
+  slate roofs and the west tower with a tall eight-sided slate spire. Heights (9 m walls, 23 m tower, 40 m spire)
+  are estimated from photos.
+- **Ibsenhuset** (Ibsen-museet): the old pharmacy where Henrik Ibsen was an apprentice and wrote *Catilina*, a
+  white-panelled gable house from 1757 with small-paned windows, on its OSM outline.
+- **Grimstad havn**: the guest harbour's wooden jetties on piles along the OSM pier lines by Dampskipsbrygga and
+  Terje Vigens brygge, with white motor boats and sailing boats moored along them.
+
+All of it costs 4 draw calls and a few thousand triangles. Sources: Wikipedia (Grimstad Church, Ibsen-museet i
+Grimstad), lokalhistoriewiki (Østre Strandgade 13), Wikimedia Commons photos, OpenStreetMap.
+
+## Loading
+
+The Oslo map's fast-load strategy: `tools/bake_buildings.mjs` packs the buildings into `data/buildings.bin`
+(6×6 chunks, simplified footprints, shared walls kept on one side only) and `data/homes.json`;
+`tools/bake_trees.cjs` bakes the forest into `data/trees.bin`. In the page, module workers build the chunk
+meshes nearest-first (`src/city-stream.js`, `src/world-worker.js`), three.js loads minified with a modulepreload,
+and phones get a lighter quality tier (`?quality=low|high`). The 3D view is on screen in about 2 s at 60 fps on
+the test GPU (before: about 6 s and 38 fps). Flicker fixes: doors stand off the walls, neighbouring roofs sit a
+few cm apart and the camera's near plane follows its height.
+
 The data came from the `town/grimstad` branch of `astar-as/grocery-bot` (10 shops, 85 delivery addresses,
 10 map labels) and OpenStreetMap. 84 of the 85 delivery homes matched a real building footprint. The match is
 a simulated 600-tick game on the Grimstad map with the realistic shop layout.

@@ -1,0 +1,25 @@
+{
+  "town": "Grimstad",
+  "notes": "Grimstad's trademarks: Grimstad kirke (1881, H. Thrap-Meyer; one of Norway's largest wooden churches, neo-Gothic cross church painted light green with yellow-ochre trim, west tower with a tall slate spire) on the rise above the harbour; Ibsenhuset (the old pharmacy where Henrik Ibsen was apprentice and wrote Catilina, a white-painted gable house from 1757, museum since 1916); and the small-boat harbour by Terje Vigens brygge and Dampskipsbrygga below the white wooden old town. Heights estimated from photos (no published figures).",
+  "sites": [
+    { "id": "grimstad-kirke", "name": "Grimstad kirke", "model": "church", "osm": "w416220085", "at": [8.59546, 58.34314],
+      "facade": "woodchurch", "wall": "#d3dfc4", "trim": "#c9a64a", "roof": "#4a4f55", "height": 9, "tower": "west",
+      "towerTop": 23, "spire": 40, "cap": "#3e4348", "capStyle": "gothic" },
+    { "id": "ibsenhuset", "name": "Ibsenhuset (Ibsen-museet)", "model": "gablehouse", "osm": "w437607949", "at": [8.59457, 58.34217],
+      "wall": "#f4f3ee", "roof": "#8a5246", "height": 7.5 },
+    { "id": "grimstad-havn", "name": "Grimstad havn", "model": "harbour", "at": [8.5958, 58.3404], "width": 3,
+      "piers": [
+        [[8.59543, 58.34137], [8.59597, 58.34057]],
+        [[8.59654, 58.34112], [8.5969, 58.34061]],
+        [[8.59651, 58.34053], [8.5969, 58.34061], [8.5973, 58.34069]],
+        [[8.5953, 58.33978], [8.59585, 58.34029]],
+        [[8.59483, 58.33929], [8.59442, 58.33973]],
+        [[8.59366, 58.33938], [8.59414, 58.33889]],
+        [[8.59399, 58.33964], [8.59457, 58.33904]]
+      ] }
+  ],
+  "places": [
+    { "name": "Storgata (old town)", "lon": 8.5935, "lat": 58.3418 },
+    { "name": "Terje Vigens brygge", "lon": 8.59472, "lat": 58.341 }
+  ]
+}
